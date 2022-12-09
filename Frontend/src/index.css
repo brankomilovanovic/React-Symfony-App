@@ -1,0 +1,88 @@
+.main-container {
+    width: 20em;
+    margin: 200px auto;
+    background-color: white;
+    width: 50%;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    width: 20em;
+    max-width: 25em;
+    margin: 200px auto;
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+h2 {
+    text-align: center;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    background: #01d28e;
+    border: 1px solid #01d28e;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+    height: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"]:hover {
+    background: #6cf0c2;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+.title {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px;
+}
+
+.error-message {
+    text-align: center;
+    color: red;
+}
+.link {
+    font-weight: bold;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    display: -webkit-box;
+    margin-bottom: 5px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.desc {
+    font-weight: normal;
+}
