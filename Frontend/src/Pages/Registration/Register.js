@@ -67,13 +67,17 @@ const Register = () => {
 
       const data = { name, surname, email, username, password };
 
-      await (await registration(data)).json()
-        .then(async () => await login({username, password})
-          .then((user) => {
-            localStorage.setItem("user", JSON.stringify(jwt(user.token)));
-            navigate('/');
-            window.location.reload(false);
-          }));
+      const result = await registration(data);
+      if(result.status !== 200) {
+        return await result.json().then((result) => setErrorMessage(result.message))
+      }
+      
+      await login({username, password})
+        .then((user) => {
+          localStorage.setItem("user", JSON.stringify(jwt(user.token)));
+          navigate('/');
+          window.location.reload(false);
+        });
     }
   };
 

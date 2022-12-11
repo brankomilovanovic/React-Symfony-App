@@ -25,11 +25,11 @@ class UserRepository extends ServiceEntityRepository
     public function transform(User $user)
     {
         return [
-                'id' => (int) $user->getId(),
-                'name' => (string) $user->getName(),
-                'surname' => (string) $user->getSurname(),
-                'username' => (string) $user->getUsername(),
-                'email' => (string) $user->getEmail()
+            'id' => (int) $user->getId(),
+            'name' => (string) $user->getName(),
+            'surname' => (string) $user->getSurname(),
+            'username' => (string) $user->getUsername(),
+            'email' => (string) $user->getEmail()
         ];
     }
 
@@ -48,6 +48,17 @@ class UserRepository extends ServiceEntityRepository
     public function getByUsername($username)
     {
         $user = $this->findOneBy(array('username' => $username));
+
+        if($user){
+            return $user;
+        }
+
+        return null;
+    }
+
+    public function getByEmail($email)
+    {
+        $user = $this->findOneBy(array('email' => $email));
 
         if($user){
             return $user;

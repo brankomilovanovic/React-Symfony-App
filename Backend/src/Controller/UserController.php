@@ -8,16 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends ApiController
 {
     private $repository;
+    private $passwordEncoder;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, UserPasswordHasherInterface $passwordEncoder)
     {
         $this->repository = $repository;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     #[Route('/api/users', methods: ['GET'])]
@@ -47,15 +50,27 @@ class UserController extends ApiController
     
     #[Route('/api/users', methods: ['POST'])]
     public function create(Request $request)
-    {
+    {        
         $request = $this->transformJsonBody($request);
-        $entity = new User();
 
-        $entity->setName($request->get('name'));
-        $entity->setSurname($request->get('surname'));
+        if($this->repository->getByUsername($request->get('username'))) {
+            return $this->setStatusCode(400)->respondWithMessage('User with that username already exists!');
+        }
+
+        if($this->repository->getByEmail($request->get('email'))) {
+            return $this->setStatusCode(400)->respondWithMessage('User with that email already exists!');
+        }
+
+        $entity = new User();
+        $entity->setName(ucfirst(strtolower($request->get('name')))); // the first letter is uppercase, the rest are lowercase
+        $entity->setSurname(ucfirst(strtolower($request->get('surname')))); // the first letter is uppercase, the rest are lowercase
         $entity->setUsername($request->get('username'));
         $entity->setEmail($request->get('email'));
-        $entity->setPassword($request->get('password'));
+        $entity->setPassword(
+            $this->passwordEncoder->hashPassword(
+                $entity, $request->get('password')
+            )
+        );
         $entity->setRole('ROLE_USER');
         return $this->respond($this->repository->save($entity, true));
     }
@@ -64,14 +79,26 @@ class UserController extends ApiController
     public function update(Request $request, $id)
     {
         $request = $this->transformJsonBody($request);
-        $entity = $this->repository->find($id);
 
+        if($this->repository->getByUsername($request->get('username'))) {
+            return $this->setStatusCode(400)->respondWithMessage('User with that username already exists!');
+        }
+
+        if($this->repository->getByEmail($request->get('email'))) {
+            return $this->setStatusCode(400)->respondWithMessage('User with that email already exists!');
+        }
+        
+        $entity = $this->repository->find($id);
         if($entity){
-            $entity->setName($request->get('name'));
-            $entity->setSurname($request->get('surname'));
+            $entity->setName(ucfirst(strtolower($request->get('name'))));
+            $entity->setSurname(ucfirst(strtolower($request->get('surname'))));
             $entity->setUsername($request->get('username'));
             $entity->setEmail($request->get('email'));
-            $entity->setPassword($request->get('password'));
+            $entity->setPassword(
+                $this->passwordEncoder->hashPassword(
+                    $entity, $request->get('password')
+                )
+            );            
             $entity->setRole($request->get('role'));
             return $this->respond($this->repository->save($entity, true));
         }
@@ -92,5 +119,4 @@ class UserController extends ApiController
         return $this->setStatusCode(404)->respondWithMessage('Not exist entity under that ID!');
 
     }
-
 }
