@@ -1,3 +1,5 @@
+import jwt from 'jwt-decode'
+
 export const login = async (data) => {
   const login = await fetch("https://localhost:8000/api/login", {
     method: "POST",
@@ -23,9 +25,24 @@ export const registration = async (data) => {
 };
 
 export const logout = async () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("token");
 };
 
-export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+export const getCurrentUserToken = () => {
+  return localStorage.getItem("token");
+};
+
+export const getCurrentUser = async () => {
+    let currentUser = {};
+    if(localStorage.getItem("token")) {
+      const user = jwt(localStorage.getItem("token"));
+      currentUser = await fetch("https://localhost:8000/api/users/" + user.id, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+      }
+    }).then((response) => response.json())
+  }
+  return currentUser;
 };

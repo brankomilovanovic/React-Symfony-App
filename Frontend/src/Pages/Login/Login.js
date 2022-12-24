@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../Services/UserService";
 import jwt from 'jwt-decode'
-import { getCurrentUser } from "../../Services/UserService";
 import '../../index.css'
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../Actions/AuthActions";
 
 const Login = () => {
   const navigate = useNavigate();
+  const authUser = useSelector((state) => state.AuthReducer.authUser);
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +17,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if(!getCurrentUser()){
+    if(!authUser.id){
         return;
     }
     navigate('/');
@@ -46,8 +49,9 @@ const Login = () => {
       if(!user.token){
         return setErrorMessage("Wrong username or password!");
       }
+      localStorage.setItem("token", user.token);
+      dispatch(userLogin(jwt(user.token)))
 
-      localStorage.setItem("user", JSON.stringify(jwt(user.token)));
       navigate('/');
       window.location.reload(false);
     }

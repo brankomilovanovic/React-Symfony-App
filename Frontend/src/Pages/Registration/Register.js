@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registration, login } from "../../Services/UserService";
-import jwt from 'jwt-decode'
 import '../../index.css'
-import { getCurrentUser } from "../../Services/UserService";
+import { useSelector } from "react-redux";
 
 const Register = () => {
   const navigate = useNavigate();
+  const authUser = useSelector((state) => state.AuthReducer.authUser);
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -17,7 +17,7 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if(!getCurrentUser()){
+    if(!authUser.id){
         return;
     }
     navigate('/');
@@ -74,7 +74,7 @@ const Register = () => {
       
       await login({username, password})
         .then((user) => {
-          localStorage.setItem("user", JSON.stringify(jwt(user.token)));
+          localStorage.setItem("token", user.token);
           navigate('/');
           window.location.reload(false);
         });

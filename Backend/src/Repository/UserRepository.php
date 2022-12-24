@@ -29,7 +29,8 @@ class UserRepository extends ServiceEntityRepository
             'name' => (string) $user->getName(),
             'surname' => (string) $user->getSurname(),
             'username' => (string) $user->getUsername(),
-            'email' => (string) $user->getEmail()
+            'email' => (string) $user->getEmail(),
+            'role' => (string) $user->getRole()
         ];
     }
 

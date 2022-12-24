@@ -1,33 +1,27 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { getCurrentUser } from "../../Services/UserService";
+import React, { Fragment } from "react";
 import '../../index.css'
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    if (getCurrentUser()) {
-      setUser(getCurrentUser());
-    }
-  }, []);
+  const authUser = useSelector((state) => state.AuthReducer.authUser);
 
   return (
     <div className="main-container">
-      { user && <Fragment>
+      { authUser && <Fragment>
         <div className="row label">Name :&nbsp;
-          <div className="desc">{user.name}</div>
+          <div className="desc">{authUser.name}</div>
         </div>
         <div className="row label">Surname :&nbsp;
-          <div className="desc">{user.surname}</div>
+          <div className="desc">{authUser.surname}</div>
         </div>
         <div className="row label">Username :&nbsp;
-          <div className="desc">{user.username}</div>
+          <div className="desc">{authUser.username}</div>
         </div>
         <div className="row label">E-mail :&nbsp;
-          <div className="desc">{user.email}</div>
+          <div className="desc">{authUser.email}</div>
         </div>
         <div className="row label">ROLE :&nbsp;
-          <div className="desc">{user.role}</div>
+          <div className="desc">{authUser.role}</div>
         </div>
       </Fragment> }
     </div>
