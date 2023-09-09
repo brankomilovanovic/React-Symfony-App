@@ -2,41 +2,47 @@
 
 namespace App\Entity;
 
+use App\Entity\Enum\RoleEnum;
+use App\Entity\Enum\UserTypeEnum;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: "string")]
+    #[Groups(['basic'])]
+    private string $name;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(type: "string")]
+    #[Groups(["basic"])]
+    private string $surname;
 
-    #[ORM\Column(length: 255)]
-    private ?string $surname = null;
+    #[ORM\Column(type: "string")]
+    #[Groups(["basic"])]
+    private string $username;
 
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
+    #[ORM\Column(type: "string")]
+    #[Groups(["basic"])]
+    private string $email;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    #[ORM\Column(type: "string")]
+    private string $password;
 
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
+    #[ORM\Column(type: "integer", enumType: RoleEnum::class)]
+    #[Groups(["basic"])]
+    private RoleEnum $role;
 
-    #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    #[ORM\Column(type: "integer", enumType: UserTypeEnum::class)]
+    #[Groups(["basic"])]
+    private UserTypeEnum $userType;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(type: "blob", nullable: true)]
+    #[Groups(["extend"])]
+    private $profileImage;
 
     public function getName(): ?string
     {
@@ -84,6 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
 
         return $this;
+
     }
 
     public function getPassword(): ?string
@@ -98,27 +105,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRole(): ?RoleEnum
     {
         return $this->role;
     }
 
-    public function setRole(string $role) : self 
+    public function setRole(RoleEnum $role): self
     {
         $this->role = $role;
 
         return $this;
-
     }
 
-    public function getUserIdentifier():string
+    public function getUserType(): ?UserTypeEnum
+    {
+        return $this->userType;
+    }
+
+    public function setUserType(UserTypeEnum $userType): self
+    {
+        $this->userType = $userType;
+
+        return $this;
+    }
+
+    public function getProfileImage()
+    {
+        if (is_resource($this->profileImage) && !is_string($this->profileImage)) {
+            return stream_get_contents($this->profileImage);
+        }
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(string $profileImage): self
+    {
+        $this->profileImage = $profileImage;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return [];
+    }
+
+    public function getUserIdentifier(): string
     {
         return $this->getUsername();
     }
 
-    public function getRoles(): array {}
-
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
     public function __sleep()
     {

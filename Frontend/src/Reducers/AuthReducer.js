@@ -1,15 +1,17 @@
 import {
-    USER_LOGIN,
-    USER_LOGOUT
+    SET_USER,
+    USER_LOGOUT,
+    IS_USER_LOADING
   } from '../Actions/AuthActions';
 
 const initialState = {
-  authUser: {}
+  authUser: {},
+  isUserLoading: true,
 };
 
   const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
-      case USER_LOGIN:
+      case SET_USER:
         return {
           ...state,
           authUser: action.payload
@@ -18,6 +20,11 @@ const initialState = {
         return {
           ...state, 
           authUser: {}
+        };
+      case IS_USER_LOADING:
+        return {
+          ...state, 
+          isUserLoading: action.payload
         };
       default: 
         return state;

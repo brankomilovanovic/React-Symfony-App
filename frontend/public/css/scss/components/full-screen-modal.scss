@@ -1,0 +1,40 @@
+#drawer {
+    .MuiDrawer-paper {
+        border-radius: 20px 0 0 20px;
+        @media screen and (min-width: $break-md) {
+            max-width: 50%;
+        }
+    }
+}
+
+.full-screen-modal {
+    max-width: 700px;
+    padding: 0 30px;
+
+    .full-screen-modal-header {
+        display: flex;
+        align-items: center;
+        margin-left: -14px;
+        gap: 10px;
+
+        .cross-button {
+            display: flex;
+            border-radius: 15px;
+            
+            &:hover{
+                background: $grey;
+                cursor: pointer;
+            }
+        }
+
+        .title {
+            text-transform: uppercase;
+            font-size: 24px;
+            font-weight: 500;
+        }
+    }
+
+    .full-screen-modal-content {
+        width: auto;
+    }
+}

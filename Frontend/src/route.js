@@ -6,12 +6,13 @@ import BoardUser from "../src/Pages/Boards/BoardUser";
 import BoardModerator from "../src/Pages/Boards/BoardModerator";
 import BoardAdmin from "../src/Pages/Boards/BoardAdmin";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, matchPath } from "react-router-dom";
+import { Role } from "./Constants/Role";
 
 export let ROUTES = {
   Home: {
     path: "/",
-    component: <Home />
+    component: <Home />,
   },
 
   Login: {
@@ -26,22 +27,32 @@ export let ROUTES = {
 
   Profile: {
     path: "/profile",
-    component: <Profile />
+    component: <Profile />,
+    roles: [Role.USER, Role.MODERATOR, Role.ADMIN]
+  },
+
+  ProfileSelected: {
+    path: "/profile/:id",
+    component: <Profile />,
+    roles: [Role.MODERATOR, Role.ADMIN]
   },
 
   BoradUser: {
     path: "/board-user",
-    component: <BoardUser />
+    component: <BoardUser />,
+    roles: [Role.USER]
   },
 
   BoardModerator: {
     path: "/board-moderator",
-    component: <BoardModerator />
+    component: <BoardModerator />,
+    roles: [Role.MODERATOR]
   },
   
   BoardAdmin: {
     path: "/board-admin",
-    component: <BoardAdmin />
+    component: <BoardAdmin />,
+    roles: [Role.ADMIN]
   }
 };
 
@@ -56,4 +67,35 @@ export function getRoutes() {
     );
   }
   return <Routes>{result}</Routes>;
+}
+
+function getRoute(path) {
+  for (const [key, value] of Object.entries(ROUTES)) {
+      const match = matchPath({
+          path: value.path,
+          exact: value.exact,
+          strict: false
+        }, path);
+
+        if(match){
+          return value
+        }
+  }
+
+  return null;
+}
+
+export const checkPagePermission = (path, user) => {
+
+  let pathObject = getRoute(path);
+
+  if (!pathObject || !pathObject?.roles) {
+      return true;
+  }
+
+  if(pathObject?.roles?.length > 0) {
+    return pathObject?.roles.includes(user?.role);
+  }
+
+  return true;
 }

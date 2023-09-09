@@ -1,0 +1,476 @@
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/plus-jakarta-display.min.css");
+body {
+  font-family: "Plus Jakarta Display", sans-serif;
+  color: #393533;
+  background: linear-gradient(45deg, #98cbff, #98ffcb);
+  margin: 0;
+}
+
+#root {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.main-container, .profile-container {
+  margin: auto;
+  background-color: #ffffff;
+  max-width: calc(100% - 20px);
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.content-container {
+  height: -webkit-fill-available;
+  transition: 0.3s;
+}
+
+.mui-shifted-label-input .MuiInputLabel-root {
+  margin-top: -25px;
+  transform: scale(1);
+  font-weight: inherit;
+  color: #000000 !important;
+}
+.mui-shifted-label-input .MuiInputLabel-root.Mui-focused {
+  color: #000000;
+}
+.mui-shifted-label-input .Mui-error {
+  margin-left: 0;
+}
+.mui-shifted-label-input .MuiOutlinedInput-root {
+  border: 1px solid #000000;
+  border-radius: 0.5rem;
+}
+.mui-shifted-label-input .MuiOutlinedInput-root:hover {
+  border-color: #40B6BE;
+}
+.mui-shifted-label-input .MuiOutlinedInput-input {
+  border: none;
+}
+.mui-shifted-label-input .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 14px;
+}
+
+.link, .register-form .register-form-container .link, .login-form .login-form-container .link {
+  font-weight: inherit;
+  text-decoration: none;
+}
+.link:hover, .register-form .register-form-container .link:hover, .login-form .login-form-container .link:hover {
+  text-decoration: underline;
+}
+
+.MuiDivider-root {
+  margin: 10px 0 !important;
+  border-width: 1px !important;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  background-color: #222;
+}
+.header a {
+  text-decoration: none;
+  color: #ffffff;
+}
+.header .logo-btn {
+  font-size: 18px;
+}
+.header .home-btn {
+  font-size: 16px;
+}
+.header .header-buttons-container {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+}
+
+.file-upload-component .drop-zone {
+  display: flex;
+  flex-direction: column;
+}
+.file-upload-component .drop-zone .dropzone {
+  width: auto;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c4c4c4;
+  border-radius: 10px;
+  border: 2px dashed lightblue;
+  padding: 0 20px;
+}
+.file-upload-component .drop-zone .meta-data {
+  display: flex;
+  padding-top: 14px;
+}
+.file-upload-component .drop-zone .meta-data button {
+  font-size: 15px;
+}
+.file-upload-component .drop-zone .meta-data button img {
+  padding-right: 4px;
+}
+.file-upload-component .drop-zone .meta-data .Mui-disabled {
+  background-color: #c4c4c4;
+}
+.file-upload-component .drop-zone .meta-data aside {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.file-upload-component .drop-zone .meta-data aside h4 {
+  margin: 5px 0;
+}
+.file-upload-component .drop-zone .meta-data aside ul {
+  margin: 0 10px;
+  padding: 0 10px;
+}
+.file-upload-component .drop-zone .meta-data aside .uploaded-files {
+  margin: 0;
+}
+.file-upload-component .drop-zone .meta-data aside .uploaded-files .file-row {
+  margin: 0;
+}
+.file-upload-component .drop-zone .uploaded-files {
+  margin-top: 20px;
+}
+.file-upload-component .drop-zone .uploaded-files .file-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+.file-upload-component .drop-zone .uploaded-files .file-row img {
+  margin-right: 12px;
+}
+.file-upload-component .drop-zone .uploaded-files .file-row .description {
+  font-size: 14px;
+  color: #c4c4c4;
+}
+
+.global-loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 100000;
+}
+.global-loader .linear-loader .MuiLinearProgress-bar {
+  background-color: #40B6BE;
+}
+.global-loader .spinner {
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -30px 0 0 -30px;
+  -webkit-animation: rotation 1s infinite linear;
+  -moz-animation: rotation 1s infinite linear;
+  -o-animation: rotation 1s infinite linear;
+  animation: rotation 1s infinite linear;
+  border: 6px solid rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+}
+.global-loader .spinner:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  height: 100%;
+  width: 100%;
+  border-top: 6px solid rgba(0, 0, 0, 0.8);
+  border-left: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-radius: 100%;
+}
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-moz-keyframes rotation {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-o-keyframes rotation {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+#custom-modal .MuiPaper-root {
+  overflow: auto;
+  width: max-content;
+  height: auto;
+  background: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 10px 30px 30px 30px;
+}
+#custom-modal .MuiPaper-root .custom-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#custom-modal .MuiPaper-root .image {
+  margin-right: -12px;
+  border-radius: 50%;
+}
+#custom-modal .MuiPaper-root .image:hover {
+  cursor: pointer;
+  background: #c4c4c4;
+}
+
+.yes-no-dialog .MuiPaper-root {
+  width: 460px;
+  height: 270px;
+  border-radius: 20px;
+}
+.yes-no-dialog .MuiPaper-root .MuiTypography-h6 {
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  padding: 0;
+  margin-top: 45px;
+}
+.yes-no-dialog .MuiPaper-root .MuiDialogContent-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yes-no-dialog .MuiPaper-root .MuiDialogContent-root .MuiDialogContentText-root {
+  font-size: 16px;
+  font-weight: 400;
+  font-size: 16px;
+}
+.yes-no-dialog .MuiPaper-root .MuiDialogActions-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  padding-left: 45px;
+  padding-right: 45px;
+  margin-bottom: 36px;
+}
+.yes-no-dialog .MuiPaper-root .MuiDialogActions-root .MuiButton-root {
+  width: 160px;
+  height: 50px;
+}
+
+.select-box {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+.select-box .MuiFormControl-root .MuiInputBase-root {
+  border: 1px solid #000000;
+  border-radius: 0.5rem;
+}
+.select-box .MuiFormControl-root .MuiInputBase-root:hover {
+  border-color: #40B6BE;
+}
+.select-box .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+.select-box .MuiFormHelperText-root {
+  margin-left: 0;
+  color: #d32f2f;
+}
+.select-box .select-label {
+  margin-top: -25px;
+  transform: scale(1);
+  font-weight: inherit;
+  color: #000000 !important;
+}
+.select-box .select-placeholder {
+  transform: scale(1);
+  margin: 0;
+  padding: 8.5px 14px;
+  opacity: 0.5;
+  color: #000000 !important;
+}
+.select-box .Mui-error .MuiSelect-select {
+  color: #d32f2f;
+}
+
+.custom-table .header-container {
+  display: flex;
+  align-items: center;
+  padding-bottom: 12px;
+  justify-content: space-between;
+}
+@media screen and (max-width: 992px) {
+  .custom-table .header-container {
+    align-items: inherit;
+    flex-direction: column;
+  }
+}
+.custom-table .header-container .search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom-table .header-container .add-button {
+  font-size: 15px;
+  padding: 12px 24px;
+  background: #40B6BE;
+  color: #ffffff;
+  height: 50px;
+  border-radius: 10px;
+}
+.custom-table .header-container .add-button img {
+  margin-right: 10px;
+  filter: brightness(5);
+}
+
+#searchfield-container .MuiPaper-root {
+  width: 316px;
+  box-shadow: none;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+}
+@media screen and (max-width: 992px) {
+  #searchfield-container .MuiPaper-root {
+    width: auto;
+  }
+}
+#searchfield-container .MuiPaper-root .MuiInputBase-root {
+  width: 100%;
+}
+
+#drawer .MuiDrawer-paper {
+  border-radius: 20px 0 0 20px;
+}
+@media screen and (min-width: 992px) {
+  #drawer .MuiDrawer-paper {
+    max-width: 50%;
+  }
+}
+
+.full-screen-modal {
+  max-width: 700px;
+  padding: 0 30px;
+}
+.full-screen-modal .full-screen-modal-header {
+  display: flex;
+  align-items: center;
+  margin-left: -14px;
+  gap: 10px;
+}
+.full-screen-modal .full-screen-modal-header .cross-button {
+  display: flex;
+  border-radius: 15px;
+}
+.full-screen-modal .full-screen-modal-header .cross-button:hover {
+  background: #c4c4c4;
+  cursor: pointer;
+}
+.full-screen-modal .full-screen-modal-header .title {
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 500;
+}
+.full-screen-modal .full-screen-modal-content {
+  width: auto;
+}
+
+.sort-filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sort-filter-container .sort-filter-type {
+  padding: 10px;
+  border-radius: 20px;
+}
+.sort-filter-container .sort-filter-type:hover {
+  background-color: #c4c4c4;
+  cursor: pointer;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  height: 90%;
+}
+.login-form .login-form-container {
+  width: 20em;
+  margin: auto;
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form .login-form-container .login-form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.login-form .login-form-container .link {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.register-form {
+  display: flex;
+  justify-content: center;
+  height: 90%;
+}
+.register-form .register-form-container {
+  width: 20em;
+  margin: auto;
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.register-form .register-form-container .register-form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.register-form .register-form-container .link {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.profile-container .profile-image {
+  width: 200px;
+  height: 200px;
+  border: 2px solid #c4c4c4;
+}
+
+/*# sourceMappingURL=style.css.map */

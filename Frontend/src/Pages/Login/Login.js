@@ -1,20 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../Services/UserService";
-import jwt from 'jwt-decode'
-import '../../index.css'
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../Actions/AuthActions";
+import { login } from "../../Services/SecurityService";
+import LoginForm from "../../Components/Forms/LoginForm";
+import { useForm } from "react-hook-form";
+import { getCurrentUser, getUser } from "../../Services/UserService";
+import { setUser } from "../../Actions/AuthActions";
+import LoaderContext from "../../Context/LoaderContext";
+import strings from "../../localization";
+import { Divider } from "@mui/material";
+
+const formRules = {
+  'username': { required: true },
+  'password': { required: true }
+}
 
 const Login = () => {
+
   const navigate = useNavigate();
   const authUser = useSelector((state) => state.AuthReducer.authUser);
   const dispatch = useDispatch();
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const {setLoading} = useContext(LoaderContext)
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const form = useForm(); 
+  const { data, handleSubmit, getValues, setValue, setError, formState: { errors } } = form;
 
   useEffect(() => {
     if(!authUser.id){
@@ -23,68 +34,45 @@ const Login = () => {
     navigate('/');
   });
 
-  const usernameChangeHandler = (event) => {
-    setUsername(event.target.value);
-  };
+  const onSubmit = (data) => {
+   setLoading(true);
+   login(data).then((response) => {
 
-  const passwordChangeHandler = (event) => {
-    setPassword(event.target.value);
-  };
+      if(!response?.data || !response.data.token) {
+        setLoading(false);
+        return setErrorMessage(strings.pages.login.wrongUsernameOrPassword);
+      }
 
-  const checkFormIsValid = () => {
-    if(username && password) {
-      return true;
-    }
-    setErrorMessage("All form fields must be filled out!");
-    return false;
+      localStorage.setItem("token", response.data.token);
+      
+      getCurrentUser({extend: true}).then((response) => {
+        dispatch(setUser(response.data))
+        navigate('/');
+      }).finally(() => setLoading(false));
+    });
   }
 
-  const loginHandler = async (event) => {
-    event.preventDefault();
-    if(checkFormIsValid()) {
-      const data = { username, password };
-
-      const user = await login(data);
-
-      if(!user.token){
-        return setErrorMessage("Wrong username or password!");
-      }
-      localStorage.setItem("token", user.token);
-      dispatch(userLogin(jwt(user.token)))
-
-      navigate('/');
-      window.location.reload(false);
-    }
-  };
-
   return (
-    <form className="login-form" onSubmit={loginHandler}>
-      <h2>Login</h2>
-      <hr />
-      <div className="input-container">
-        <label htmlFor="username">Username</label>
-        <input
-          name="username"
-          type="text"
-          required
-          onChange={usernameChangeHandler}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          required
-          onChange={passwordChangeHandler}
-        />
+    <div className="login-form">
+      <div className="login-form-container">
+
+        <div style={{textAlign: 'center', fontSize: '24px'}}>{strings.forms.common.login}</div>
+        <Divider />
+
+        <LoginForm
+          formRules={formRules}
+          values={getValues()}
+          setValue={setValue}
+          errors={errors} data={data} form={form}
+          onSubmit={handleSubmit(onSubmit)} />
+
+        { errorMessage && <p className="error" style={{textAlign: 'center'}}>{errorMessage}</p> }
+
+        <Link to={"/registration"} className="link">
+          {strings.pages.login.createNewAccount}
+        </Link>
       </div>
-      { errorMessage && <p className="error-message">{errorMessage}</p>}
-      <div className="button-container">
-        <input type="submit" />
-      </div>
-      <Link to={"/registration"} className="link">
-        Create a new account
-      </Link>
-    </form>
+    </div>
   );
 };
 

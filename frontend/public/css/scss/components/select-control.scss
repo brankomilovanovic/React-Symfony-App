@@ -1,0 +1,44 @@
+.select-box {
+    margin-top: 16px;
+    margin-bottom: 8px;
+
+    .MuiFormControl-root {
+        .MuiInputBase-root {
+            border: 1px solid $black;
+            border-radius: 0.5rem;
+            &:hover {
+                border-color: $primary;
+            }
+
+            .MuiOutlinedInput-notchedOutline {
+                border: none;
+            }
+        }
+    }
+
+    .MuiFormHelperText-root {
+        margin-left: 0;
+        color: $red;
+    }
+
+    .select-label {
+        margin-top: -25px;
+        transform: scale(1);
+        font-weight: inherit;
+        color: $black !important;
+    }
+
+    .select-placeholder {
+        transform: scale(1);
+        margin: 0;
+        padding: 8.5px 14px;
+        opacity: .5;
+        color: $black !important;
+    }
+
+    .Mui-error {
+        .MuiSelect-select {
+            color: $red;
+        }
+    }
+}

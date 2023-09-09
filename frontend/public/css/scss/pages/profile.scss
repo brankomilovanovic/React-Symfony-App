@@ -1,0 +1,9 @@
+.profile-container {
+    @extend .main-container;
+
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        border: 2px solid $grey;
+    }
+}
