@@ -55,9 +55,9 @@ or
 
 **5. Install ReactJS and start front ed**
 > [Visual Studio Code](https://code.visualstudio.com) and [ReactJS](https://www.tutorialspoint.com/reactjs/reactjs_environment_setup.htm) > File > Open Folder > Find the cloned directory, and select the client folder.
-
 > Run this commands > **npm install** > **npm run start** > **npm run sass**
-> 
+
+**6. Enjoy**
 <hr>
 
 Regards, **Branko**
