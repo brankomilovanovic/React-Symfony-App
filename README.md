@@ -19,13 +19,13 @@ Users can create, delete, edit, and view profiles, including the option to uploa
 
 ### Little preview
 <p align="center">
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/8b51ee78-807e-40a5-8079-e257a9517e16"></kbd><hr>
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/7ff9a549-80e1-49b4-8575-5f2b8a1d4855"></kbd><hr>
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/bef341f0-0e2b-4534-ae3c-f9dfda0c7a40"></kbd><hr>
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/c6293989-4b08-4c99-a3ea-2158f2b0a346"></kbd><hr>
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/3293aef0-a3f7-438f-b83b-76ef232ae6fc"></kbd><hr>
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/6d358325-aa41-4373-a42b-341c41862088"></kbd><hr>
-<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/fa2b9d3d-b53b-449d-ba48-4cb33e07e0ad"></kbd><hr>
+<kbd><portfolio><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/8b51ee78-807e-40a5-8079-e257a9517e16" /></portfolio></kbd><hr>
+<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/7ff9a549-80e1-49b4-8575-5f2b8a1d4855" /></kbd><hr>
+<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/bef341f0-0e2b-4534-ae3c-f9dfda0c7a40" /></kbd><hr>
+<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/c6293989-4b08-4c99-a3ea-2158f2b0a346" /></kbd><hr>
+<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/3293aef0-a3f7-438f-b83b-76ef232ae6fc" /></kbd><hr>
+<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/6d358325-aa41-4373-a42b-341c41862088" /></kbd><hr>
+<kbd><img src="https://github.com/brankomilovanovic/React-Symfony-App/assets/87083680/fa2b9d3d-b53b-449d-ba48-4cb33e07e0ad" /></kbd><hr>
 </p>
 
 **This is just a small preview of the app.**
